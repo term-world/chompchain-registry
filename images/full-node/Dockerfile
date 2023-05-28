@@ -11,9 +11,11 @@ RUN nvm install 16.10.0 && nvm use 16.10.0
 
 RUN npm install pm2 --global
 
-RUN mkdir /opt/server/ && cd /opt/server
+RUN mkdir /opt/server/
 
-RUN git clone https://github.com/term-world/chompchain-node.git
+RUN cd /opt/server && git clone https://github.com/term-world/chompchain-node.git
+
+RUN cd /opt/server/chompchain-node/nodes/ && npm install
 
 RUN mkdir /mempool
 
