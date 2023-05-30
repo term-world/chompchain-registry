@@ -1,5 +1,8 @@
 from debian:stable-slim
 
+ARG TXPOOL
+ENV MEMPOOL=$TXPOOL
+
 SHELL ["/bin/bash", "--login", "-c"]
 
 RUN apt-get update && apt-get install -y wget git
@@ -17,7 +20,7 @@ RUN cd /opt/server && git clone https://github.com/term-world/chompchain-node.gi
 
 RUN cd /opt/server/chompchain-node/nodes/ && npm install
 
-RUN mkdir /mempool
+RUN mkdir $TXPOOL
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
