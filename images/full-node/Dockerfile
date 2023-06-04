@@ -12,6 +12,7 @@ git \
 curl \ 
 dpkg \
 sudo \
+gosu \
 apt-transport-https \
 gnupg \
 lsb-release \
@@ -51,8 +52,19 @@ RUN echo "export COUCHDB_COOKIE=$(openssl rand -hex 32)" >> /root/.bashrc
 ADD couchdb.conf /couchdb.conf
 RUN envsubst < /couchdb.conf > /couchdb-env.conf
 RUN debconf-set-selections /couchdb-env.conf
+RUN rm /couchdb.conf && rm /couchdb-env.conf
 RUN sudo apt-get download couchdb && ls -la && sudo dpkg -i couchdb_3.3.2~$(lsb_release -cs)_amd64.deb
 
-#ADD entrypoint.sh /entrypoint.sh
-#RUN chmod +x /entrypoint.sh
-#ENTRYPOINT /entrypoint.sh
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y gosu; \
+    rm -rf /var/lib/apt/lists/*; \
+    gosu nobody true
+
+RUN useradd chompers
+RUN mkdir /home/chompers
+RUN usermod -d /home/chompers chompers
+
+ADD entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT /entrypoint.sh
