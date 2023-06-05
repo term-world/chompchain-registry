@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y apt-utils \
 wget \
 git \ 
 curl \ 
+cron \
 dpkg \
 sudo \
 gosu \
