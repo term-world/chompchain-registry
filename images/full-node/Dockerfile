@@ -7,23 +7,26 @@ ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "--login", "-c"]
 
 RUN apt-get update && apt-get install -y apt-utils \
-wget \
-git \ 
-curl \ 
-cron \
-dpkg \
-sudo \
-gosu \
-apt-transport-https \
-gnupg \
-lsb-release \
-libicu67 \
-libmozjs-78-0 \
-libncurses6 \
-libprocps8 \
-procps \
-psmisc \
-gettext
+    wget \
+    git \ 
+    curl \ 
+    cron \
+    dpkg \
+    sudo \
+    gosu \
+    apt-transport-https \
+    gnupg \
+    lsb-release \
+    libicu67 \
+    libmozjs-78-0 \
+    libncurses6 \
+    libprocps8 \
+    procps \
+    psmisc \
+    gettext \
+    python3 \
+    python3-pip \
+    python-is-python3
 
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 
