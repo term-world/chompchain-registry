@@ -42,7 +42,7 @@ RUN cd /opt/server && git clone https://github.com/term-world/chompchain-node.gi
 
 RUN cd /opt/server/chompchain-node/nodes/ && npm install
 
-RUN mkdir $TXPOOL
+RUN mkdir /$TXPOOL
 
 RUN curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
 RUN source /etc/os-release
@@ -71,4 +71,4 @@ RUN usermod -d /home/chompers chompers
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

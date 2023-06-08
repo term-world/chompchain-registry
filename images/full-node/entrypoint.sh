@@ -2,7 +2,7 @@
 
 # CouchDB startup
 service couchdb start
-sleep 5
+sleep 10
 
 # CouchDB API requests
 
