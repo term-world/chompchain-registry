@@ -1,11 +1,12 @@
-from debian:stable-slim
-
+# Base image
+FROM debian:stable-slim
+# Input arguments and environment variables
 ARG TXPOOL
 ENV MEMPOOL=$TXPOOL
 ENV DEBIAN_FRONTEND=noninteractive
-
+# Change shell to bash
 SHELL ["/bin/bash", "--login", "-c"]
-
+# Run installs for necessary tooling
 RUN apt-get update && apt-get install -y apt-utils \
     wget \
     git \ 
@@ -28,12 +29,13 @@ RUN apt-get update && apt-get install -y apt-utils \
     python3-pip \
     python-is-python3
 
+# Get the installer for NVM
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-
+# Source user bash file to load NVM
 RUN source ~/.bashrc 
-
+# Use NVM to install node 16.10.0
 RUN nvm install 16.10.0 && nvm use 16.10.0
-
+# Install pm2 process manager
 RUN npm install pm2 --global
 
 RUN mkdir /opt/server/
@@ -51,8 +53,9 @@ RUN echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https:
 
 RUN apt-get update
 
-RUN echo "export COUCHDB_PASSWORD=$(openssl rand -hex 32)" > /root/.bashrc
+RUN echo "export COUCHDB_PASSWORD=$(openssl rand -hex 32)" >> /root/.bashrc
 RUN echo "export COUCHDB_COOKIE=$(openssl rand -hex 32)" >> /root/.bashrc
+RUN env
 ADD couchdb.conf /couchdb.conf
 RUN envsubst < /couchdb.conf > /couchdb-env.conf
 RUN debconf-set-selections /couchdb-env.conf
