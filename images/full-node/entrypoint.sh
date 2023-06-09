@@ -22,4 +22,5 @@ pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "valida
 
 # Transfer away from root user
 #gosu chompers /bin/bash
-/bin/bash
+#/bin/bash
+gosu chompers python -c "import chompchain"
