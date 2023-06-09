@@ -62,6 +62,15 @@ RUN debconf-set-selections /couchdb-env.conf
 RUN rm /couchdb.conf && rm /couchdb-env.conf
 RUN sudo apt-get download couchdb && ls -la && sudo dpkg -i couchdb_3.3.2~$(lsb_release -cs)_amd64.deb
 
+RUN git clone https://github.com/term-world/term-util.git
+RUN cd term-util/libs/couchsurf && python3 -m pip install .
+
+RUN git clone https://github.com/term-world/chompchain.git 
+RUN cd chompchain && python3 -m pip install .
+
+RUN git clone https://github.com/term-world/chompchain-wallet.git
+RUN cd chompchain-wallet && python3 -m pip install .
+
 RUN set -eux; \
     apt-get update; \
     apt-get install -y gosu; \
