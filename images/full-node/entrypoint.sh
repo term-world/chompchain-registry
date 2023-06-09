@@ -15,6 +15,7 @@ echo "export DB_HOST='127.0.0.1'" >> /home/chompers/.bashrc
 # CouchDB API requests
 curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/blocks
 curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/contracts
+# TODO: Add non-admin user to DB with password (may be 2 steps?)
 curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/_users/$DB_USER -d '"$DB_PASS"'
 
 # pm2 task
@@ -23,4 +24,5 @@ pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "valida
 # Transfer away from root user
 #gosu chompers /bin/bash
 #/bin/bash
+# TODO: Verify that this can run without apparent error
 gosu chompers python -c "import chompchain"
