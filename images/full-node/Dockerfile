@@ -65,6 +65,9 @@ RUN sudo apt-get download couchdb && ls -la && sudo dpkg -i couchdb_3.3.2~$(lsb_
 RUN git clone https://github.com/term-world/term-util.git
 RUN cd term-util/libs/couchsurf && python3 -m pip install .
 
+RUN git clone https://github.com/term-world/falcon-sign.git
+RUN cd falcon-sign && python3 -m pip install .
+
 RUN git clone https://github.com/term-world/chompchain.git 
 RUN cd chompchain && python3 -m pip install .
 
