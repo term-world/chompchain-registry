@@ -7,13 +7,19 @@ source ~/.bashrc
 service couchdb start
 sleep 5
 
-# CouchDB API requests
+# Create environment variables for DB user
+echo "export DB_USER=$(openssl rand -hex 6)" >> /home/chompers/.bashrc
+echo "export DB_PASS=$(openssl rand -hex 32)" >> /home/chompers/.bashrc
+echo "export DB_HOST='127.0.0.1'" >> /home/chompers/.bashrc
 
+# CouchDB API requests
 curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/blocks
 curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/contracts
+curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/_users/$DB_USER -d '"$DB_PASS"'
 
 # pm2 task
 pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"
 
 # Transfer away from root user
-gosu chompers /bin/bash
+#gosu chompers /bin/bash
+/bin/bash

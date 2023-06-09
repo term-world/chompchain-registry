@@ -82,6 +82,7 @@ RUN set -eux; \
 
 RUN useradd chompers
 RUN mkdir /home/chompers
+RUN chown chompers:chompers /home/chompers -R
 RUN usermod -d /home/chompers chompers
 
 ADD entrypoint.sh /entrypoint.sh
