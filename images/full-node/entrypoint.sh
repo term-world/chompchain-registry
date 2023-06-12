@@ -12,7 +12,7 @@ sleep 5
 export DB_USER=$(openssl rand -hex 6)
 echo $DB_USER >> /home/chompers/.bashrc
 export DB_PASS=$(openssl rand -hex 32)
-echo $DBPASS  >> /home/chompers/.bashrc
+echo $DB_PASS  >> /home/chompers/.bashrc
 echo "export DB_HOST='127.0.0.1'" >> /home/chompers/.bashrc
 
 # CouchDB API requests
