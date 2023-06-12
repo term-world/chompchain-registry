@@ -24,6 +24,8 @@ curl -X PUT http://127.0.0.1:5984/_users/org.couchdb.user:$DB_USER \
      -H "Content-Type: application/json" \
      -d '{"name": "$DB_USER", "password": "$DB_PASS", "roles": [], "type": "user"}'
 
+curl -X POST http://127.0.0.1:5984/_session -d 'name=$DB_USER&password=$DB_PASS'
+
 # pm2 task
 pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"
 
