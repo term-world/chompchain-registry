@@ -8,8 +8,11 @@ service couchdb start
 sleep 5
 
 # Create environment variables for DB user
-echo "export DB_USER=$(openssl rand -hex 6)" >> /home/chompers/.bashrc
-echo "export DB_PASS=$(openssl rand -hex 32)" >> /home/chompers/.bashrc
+
+export DB_USER=$(openssl rand -hex 6)
+echo $DB_USER >> /home/chompers/.bashrc
+export DB_PASS=$(openssl rand -hex 32)
+echo $DBPASS  >> /home/chompers/.bashrc
 echo "export DB_HOST='127.0.0.1'" >> /home/chompers/.bashrc
 
 # CouchDB API requests
@@ -22,7 +25,7 @@ curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/_users/$DB_USER
 pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"
 
 # Transfer away from root user
-#gosu chompers /bin/bash
+gosu chompers /bin/bash
 #/bin/bash
 # TODO: Verify that this can run without apparent error
-gosu chompers python -c "import chompchain"
+#gosu chompers python -c "import chompchain"
