@@ -1,5 +1,5 @@
 # Base image
-FROM debian:stable-slim
+FROM debian:bullseye-slim
 # Input arguments and environment variables
 ARG TXPOOL
 ENV MEMPOOL=$TXPOOL
