@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "--login", "-c"]
 # Run installs for necessary tooling
 RUN apt-get update && apt-get install -y apt-utils \
+    jq \
     wget \
     git \ 
     curl \ 
