@@ -1,5 +1,7 @@
 # Base image
 FROM debian:bullseye-slim
+# Time Zone set
+ENV TZ="America/New_York"
 # Input arguments and environment variables
 ARG TXPOOL
 ENV MEMPOOL=$TXPOOL
