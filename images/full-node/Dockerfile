@@ -1,5 +1,5 @@
 # Base image
-FROM debian:stable-slim
+FROM debian:bullseye-slim
 # Input arguments and environment variables
 ARG TXPOOL
 ENV MEMPOOL=$TXPOOL
@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "--login", "-c"]
 # Run installs for necessary tooling
 RUN apt-get update && apt-get install -y apt-utils \
+    jq \
     wget \
     git \ 
     curl \ 
@@ -62,6 +63,18 @@ RUN debconf-set-selections /couchdb-env.conf
 RUN rm /couchdb.conf && rm /couchdb-env.conf
 RUN sudo apt-get download couchdb && ls -la && sudo dpkg -i couchdb_3.3.2~$(lsb_release -cs)_amd64.deb
 
+RUN git clone https://github.com/term-world/term-util.git
+RUN cd term-util/libs/couchsurf && python3 -m pip install .
+
+RUN git clone https://github.com/term-world/falcon-sign.git
+RUN cd falcon-sign && python3 -m pip install .
+
+RUN git clone https://github.com/term-world/chompchain.git 
+RUN cd chompchain && python3 -m pip install .
+
+RUN git clone https://github.com/term-world/chompchain-wallet.git
+RUN cd chompchain-wallet && python3 -m pip install .
+
 RUN set -eux; \
     apt-get update; \
     apt-get install -y gosu; \
@@ -70,6 +83,7 @@ RUN set -eux; \
 
 RUN useradd chompers
 RUN mkdir /home/chompers
+RUN chown chompers:chompers /home/chompers -R
 RUN usermod -d /home/chompers chompers
 
 ADD entrypoint.sh /entrypoint.sh
