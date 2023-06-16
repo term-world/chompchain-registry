@@ -1,4 +1,4 @@
-from debian:stable-slim
+FROM debian:stable-slim
 
 SHELL ["/bin/bash", "--login", "-c"]
 
