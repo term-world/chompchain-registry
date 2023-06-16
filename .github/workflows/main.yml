@@ -28,7 +28,7 @@ jobs:
       - name: Build image
         run: |
           cd images/full-node
-          docker build -f Dockerfile . -t chompchain-full:latest
+          docker build -f Dockerfile . -t chompchain-full:latest --build-arg="TXPOOL=mempool"
       - name: Log in to container registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Publish image
