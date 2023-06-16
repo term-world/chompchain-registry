@@ -1,5 +1,7 @@
 # Base image
 FROM debian:bullseye-slim
+# Time Zone set
+ENV TZ="America/New_York"
 # Input arguments and environment variables
 ARG TXPOOL
 ENV MEMPOOL=$TXPOOL
@@ -85,6 +87,10 @@ RUN useradd chompers
 RUN mkdir /home/chompers
 RUN chown chompers:chompers /home/chompers -R
 RUN usermod -d /home/chompers chompers
+
+ADD crontab /etc/cron.d/hello-cron
+RUN chmod 0644 /etc/cron.d/hello-cron
+RUN touch /var/log/cron.log
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
