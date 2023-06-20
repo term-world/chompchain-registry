@@ -21,11 +21,18 @@ curl -s -o /dev/null -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984
 curl -s -o /dev/null -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/contracts
 curl -s -o /dev/null -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/_users
 
-# TODO: Add non-admin user to DB with password (may be 2 steps?)
-curl -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/_users/org.couchdb.user:$DB_USER \
+# Adds our generated user to the database as a member
+curl -s -o /dev/null -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/_users/org.couchdb.user:$DB_USER \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -d '{"_id":"'"org.couchdb.user:$DB_USER"'", "type": "user", "roles": [], "password":"'"$DB_PASS"'"}'
+
+# Limits revisions on all DBs to 2
+
+curl -s -o /dev/null -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984/blocks/_revs_limit \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    -d '2'
 
 # pm2 task
 pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"
