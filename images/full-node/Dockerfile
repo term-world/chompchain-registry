@@ -30,8 +30,7 @@ RUN apt-get update && apt-get install -y apt-utils \
     gettext \
     python3 \
     python3-pip \
-    python-is-python3 \
-    aiohttp
+    python-is-python3
 
 # Get the installer for NVM
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
@@ -47,6 +46,7 @@ RUN mkdir /opt/server/
 RUN cd /opt/server && git clone https://github.com/term-world/chompchain-node.git
 
 RUN cd /opt/server/chompchain-node/nodes/ && npm install
+RUN cd /opt/server/chompchain-node/ && python3 -m pip install -r requirements.txt
 
 RUN mkdir /$TXPOOL
 
