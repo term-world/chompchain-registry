@@ -13,8 +13,8 @@ jobs:
       uses: term-world/arborist@v0.1.5
       with:
         branches: '["main"]'
-        min-approvals: 2
-        enforce-admins: true
+        min-approvals: 1
+        enforce-admins: false
         force-protect: true
     env:
       GITHUB_TOKEN: ${{ secrets.ARBORIST }}
