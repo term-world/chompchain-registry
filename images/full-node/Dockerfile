@@ -30,7 +30,8 @@ RUN apt-get update && apt-get install -y apt-utils \
     gettext \
     python3 \
     python3-pip \
-    python-is-python3
+    python-is-python3 \
+    aiohttp
 
 # Get the installer for NVM
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
