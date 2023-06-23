@@ -1,1 +1,1 @@
-0 * * * * root chompchain --generate
+0 * * * * chompers chompchain --generate
