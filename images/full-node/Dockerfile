@@ -92,9 +92,10 @@ RUN mkdir /home/chompers
 RUN chown chompers:chompers /home/chompers -R
 RUN usermod -d /home/chompers chompers
 
-ADD crontab /etc/cron.d/hello-cron
-RUN chmod 0644 /etc/cron.d/hello-cron
-RUN touch /var/log/cron.log
+ADD crontab /etc/cron.d/sweep-transactions
+RUN chmod 0644 /etc/cron.d/sweep-transactions
+RUN chown chompers:chompers /etc/cron.d/sweep-transactions
+RUN gosu chompers crontab /etc/cron.d/sweep-transactions
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

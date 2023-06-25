@@ -1,1 +1,2 @@
-0 * * * * chompers chompchain --generate
+TZ = America/New_York
+* * * * * chompers chompchain --generate
