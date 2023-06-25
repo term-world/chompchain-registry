@@ -40,6 +40,8 @@ RUN source ~/.bashrc
 RUN nvm install 16.10.0 && nvm use 16.10.0
 # Install pm2 process manager
 RUN npm install pm2 --global
+# Create pm2 group
+RUN groupadd pm2
 
 RUN mkdir /opt/server/
 
@@ -91,6 +93,13 @@ RUN useradd chompers
 RUN mkdir /home/chompers
 RUN chown chompers:chompers /home/chompers -R
 RUN usermod -d /home/chompers chompers
+RUN usermod -aG pm2 chompers
+
+RUN mkdir /opt/pm2
+RUN chgrp -R pm2 /opt/pm2
+RUN chmod -R 770 /opt/pm2
+
+RUN chown root:pm2 /mempool -R
 
 ADD crontab /etc/cron.d/sweep-transactions
 RUN chmod 0644 /etc/cron.d/sweep-transactions
