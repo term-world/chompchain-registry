@@ -1,1 +1,1 @@
-* * * * * chompers bash -c 'source ~/.bashrc && chompchain --generate'
+* * * * * chompers bash -c 'source /home/chompers/.bashrc && chompchain --generate'

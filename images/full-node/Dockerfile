@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y apt-utils \
     dpkg \
     sudo \
     gosu \
+    nano \
     rsyslog \
     apt-transport-https \
     gnupg \
@@ -99,7 +100,6 @@ RUN usermod -aG chain chompers
 
 ADD crontab /etc/cron.d/sweep-transactions
 RUN chmod 644 /etc/cron.d/sweep-transactions
-RUN gosu chompers crontab /etc/cron.d/sweep-transactions
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
