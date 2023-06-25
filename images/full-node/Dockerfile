@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y apt-utils \
     dpkg \
     sudo \
     gosu \
+    rsyslog \
     apt-transport-https \
     gnupg \
     lsb-release \
@@ -97,7 +98,7 @@ RUN usermod -d /home/chompers chompers
 RUN usermod -aG chain chompers
 
 ADD crontab /etc/cron.d/sweep-transactions
-RUN chmod 0644 /etc/cron.d/sweep-transactions
+RUN chmod 644 /etc/cron.d/sweep-transactions
 RUN chown chompers:chompers /etc/cron.d/sweep-transactions
 RUN gosu chompers crontab /etc/cron.d/sweep-transactions
 
