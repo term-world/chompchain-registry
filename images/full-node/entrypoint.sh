@@ -5,6 +5,7 @@ source ~/.bashrc
 
 # CouchDB startup
 service couchdb start
+cron
 sleep 5
 
 # Create environment variables for DB user
@@ -48,9 +49,4 @@ curl -s -o /dev/null -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984
 
 # pm2 task
 echo "Kick off project daemons..."
-pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"
-
-# Transfer away from root user
-gosu chompers /bin/bash
-# TODO: Verify that this can run without apparent error
-##gosu chompers python -c "import chompchain"
+gosu chompers PM2_HOME=/opt/pm2 pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"
