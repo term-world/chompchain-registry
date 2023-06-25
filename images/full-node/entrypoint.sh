@@ -49,4 +49,4 @@ curl -s -o /dev/null -X PUT --user admin:$COUCHDB_PASSWORD http://127.0.0.1:5984
 
 # pm2 task
 echo "Kick off project daemons..."
-gosu chompers PM2_HOME=/opt/pm2 pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"
+pm2-runtime /opt/server/chompchain-node/nodes/ecosystem.config.js --only "validator, registry"

@@ -40,8 +40,6 @@ RUN source ~/.bashrc
 RUN nvm install 16.10.0 && nvm use 16.10.0
 # Install pm2 process manager
 RUN npm install pm2 --global
-# Create pm2 group
-RUN groupadd pm2
 
 RUN mkdir /opt/server/
 
@@ -51,6 +49,9 @@ RUN cd /opt/server/chompchain-node/nodes/ && npm install
 RUN cd /opt/server/chompchain-node/ && python3 -m pip install -r requirements.txt
 
 RUN mkdir /$TXPOOL
+RUN groupadd chain
+RUN chown root:chain /mempool -R
+RUN chmod g+ws /mempool
 
 RUN curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
 RUN source /etc/os-release
@@ -93,13 +94,7 @@ RUN useradd chompers
 RUN mkdir /home/chompers
 RUN chown chompers:chompers /home/chompers -R
 RUN usermod -d /home/chompers chompers
-RUN usermod -aG pm2 chompers
-
-RUN mkdir /opt/pm2
-RUN chgrp -R pm2 /opt/pm2
-RUN chmod -R 770 /opt/pm2
-
-RUN chown root:pm2 /mempool -R
+RUN usermod -aG chain chompers
 
 ADD crontab /etc/cron.d/sweep-transactions
 RUN chmod 0644 /etc/cron.d/sweep-transactions
