@@ -5,7 +5,6 @@ source ~/.bashrc
 
 # CouchDB startup
 service couchdb start
-cron
 sleep 5
 
 # Create environment variables for DB user
