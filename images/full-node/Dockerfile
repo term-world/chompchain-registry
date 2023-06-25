@@ -99,7 +99,6 @@ RUN usermod -aG chain chompers
 
 ADD crontab /etc/cron.d/sweep-transactions
 RUN chmod 644 /etc/cron.d/sweep-transactions
-RUN chown chompers:chompers /etc/cron.d/sweep-transactions
 RUN gosu chompers crontab /etc/cron.d/sweep-transactions
 
 ADD entrypoint.sh /entrypoint.sh
