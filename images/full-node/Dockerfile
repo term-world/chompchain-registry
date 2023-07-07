@@ -1,5 +1,5 @@
 # Base image
-FROM debian:bullseye-slim
+FROM 3.11-bullseye
 # Time Zone set
 ENV TZ="America/New_York"
 # Input arguments and environment variables
