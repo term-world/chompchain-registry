@@ -48,7 +48,7 @@ RUN mkdir /opt/server/
 RUN cd /opt/server && git clone https://github.com/term-world/chompchain-node.git
 
 RUN cd /opt/server/chompchain-node/nodes/ && npm install
-RUN cd /opt/server/chompchain-node/ && python3 -m pip install -r requirements.txt
+RUN cd /opt/server/chompchain-node/ && python -m pip install -r requirements.txt
 
 RUN mkdir /$TXPOOL
 RUN groupadd chain
@@ -72,19 +72,19 @@ RUN rm /couchdb.conf && rm /couchdb-env.conf
 RUN sudo apt-get download couchdb && ls -la && sudo dpkg -i couchdb_3.3.2~$(lsb_release -cs)_amd64.deb
 
 RUN git clone https://github.com/term-world/term-util.git
-RUN cd term-util/libs/couchsurf && python3 -m pip install .
+RUN cd term-util/libs/couchsurf && python -m pip install .
 RUN cd term-util/libs/gitit && python -m pip install .
-RUN cd term-util/libs/inventory && python3 -m pip install .
-RUN cd term-util/libs/marketplace && python3 -m pip install .
+RUN cd term-util/libs/inventory && python -m pip install .
+RUN cd term-util/libs/marketplace && python -m pip install .
 
 RUN git clone https://github.com/term-world/falcon-sign.git
-RUN cd falcon-sign && python3 -m pip install .
+RUN cd falcon-sign && python -m pip install .
 
 RUN git clone https://github.com/term-world/chompchain.git 
-RUN cd chompchain && python3 -m pip install .
+RUN cd chompchain && python -m pip install .
 
 RUN git clone https://github.com/term-world/chompchain-wallet.git
-RUN cd chompchain-wallet && python3 -m pip install .
+RUN cd chompchain-wallet && python -m pip install .
 
 RUN set -eux; \
     apt-get update; \
