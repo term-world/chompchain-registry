@@ -1,5 +1,5 @@
 # Base image
-FROM 3.11-bullseye
+FROM python:3.11-bullseye
 # Time Zone set
 ENV TZ="America/New_York"
 # Input arguments and environment variables
@@ -30,8 +30,6 @@ RUN apt-get update && apt-get install -y apt-utils \
     procps \
     psmisc \
     gettext \
-    python3 \
-    python3-pip \
     python-is-python3
 
 # Get the installer for NVM
