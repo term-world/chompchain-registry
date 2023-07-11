@@ -82,11 +82,11 @@ RUN cd term-util/libs/marketplace && python -m pip install .
 RUN git clone https://github.com/term-world/falcon-sign.git
 RUN cd falcon-sign && python -m pip install .
 
-RUN git clone https://github.com/term-world/chompchain.git 
-RUN cd chompchain && python -m pip install .
-
 RUN git clone https://github.com/term-world/chompchain-wallet.git
 RUN cd chompchain-wallet && python -m pip install .
+
+RUN git clone https://github.com/term-world/chompchain.git 
+RUN cd chompchain && python -m pip install .
 
 RUN set -eux; \
     apt-get update; \
