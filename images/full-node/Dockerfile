@@ -53,6 +53,10 @@ RUN groupadd chain
 RUN chown root:chain /mempool -R
 RUN chmod g+ws /mempool
 
+RUN mkdir /chain
+RUN chown root:chain /chain -R
+RUN chmod g+ws /chain
+
 RUN curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
 RUN source /etc/os-release
 RUN echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ `lsb_release -cs` main" \
